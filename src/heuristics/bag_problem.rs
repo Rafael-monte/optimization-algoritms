@@ -1,23 +1,10 @@
-#[derive(Clone, Copy, PartialEq, PartialOrd)]
-pub struct BagItem {
-    pub id: u64,
-    pub weight: f32,
-    pub utility: u32
-}
-
-impl BagItem {
-    pub fn from(id: u64, weight: f32, utility: u32) -> Self {
-        return BagItem { id, weight, utility };
-    }
-}
+use crate::default_structures::BagItem;
 
 fn avg_reason(bag_items: &[BagItem]) -> f32 {
     let sum_of_reasons: f32 = bag_items.iter().map(|item|{
         item.utility as f32/item.weight
     }).sum();
     return sum_of_reasons/bag_items.len() as f32;
-
-
 }
 
 pub fn apply_avg_heuristic(items: &[BagItem], max_weight: f32) -> Vec<BagItem> {
@@ -34,7 +21,6 @@ pub fn apply_avg_heuristic(items: &[BagItem], max_weight: f32) -> Vec<BagItem> {
     }).cloned().collect();
 
     let mut weights_of_best_items: f32 = best_items.iter().map(|item| item.weight).sum();
-    println!("Total weight of best items: {weights_of_best_items}");
     if weights_of_best_items == max_weight {
         return best_items
     }
